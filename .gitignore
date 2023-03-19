@@ -1,6 +1,8 @@
 logs/
 wandb/
 
+*.jpg
+
 ###################################
 # github/gitignore/Python.gitignore
 ###################################

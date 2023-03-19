@@ -1,0 +1,99 @@
+Collecting pytorch-lightning
+  Downloading pytorch_lightning-2.0.0-py3-none-any.whl (715 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 715.6/715.6 kB 938.5 kB/s eta 0:00:00
+Collecting torchmetrics
+  Downloading torchmetrics-0.11.4-py3-none-any.whl (519 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 519.2/519.2 kB 6.6 MB/s eta 0:00:00
+Collecting segmentation-models-pytorch
+  Downloading segmentation_models_pytorch-0.3.2-py3-none-any.whl (106 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 106.7/106.7 kB 3.3 MB/s eta 0:00:00
+Requirement already satisfied: PyYAML>=5.4 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from pytorch-lightning) (6.0)
+Requirement already satisfied: packaging>=17.1 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from pytorch-lightning) (23.0)
+Requirement already satisfied: typing-extensions>=4.0.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from pytorch-lightning) (4.5.0)
+Requirement already satisfied: numpy>=1.17.2 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from pytorch-lightning) (1.23.5)
+Collecting lightning-utilities>=0.7.0
+  Downloading lightning_utilities-0.8.0-py3-none-any.whl (20 kB)
+Requirement already satisfied: tqdm>=4.57.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from pytorch-lightning) (4.65.0)
+Requirement already satisfied: torch>=1.11.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from pytorch-lightning) (2.0.0)
+Collecting fsspec[http]>2021.06.0
+  Downloading fsspec-2023.3.0-py3-none-any.whl (145 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 145.4/145.4 kB 3.5 MB/s eta 0:00:00
+Collecting pretrainedmodels==0.7.4
+  Downloading pretrainedmodels-0.7.4.tar.gz (58 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.8/58.8 kB 4.2 MB/s eta 0:00:00
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Collecting efficientnet-pytorch==0.7.1
+  Using cached efficientnet_pytorch-0.7.1.tar.gz (21 kB)
+  Preparing metadata (setup.py): started
+  Preparing metadata (setup.py): finished with status 'done'
+Requirement already satisfied: torchvision>=0.5.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from segmentation-models-pytorch) (0.15.1)
+Collecting timm==0.6.12
+  Downloading timm-0.6.12-py3-none-any.whl (549 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 549.1/549.1 kB 5.1 MB/s eta 0:00:00
+Requirement already satisfied: pillow in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from segmentation-models-pytorch) (9.4.0)
+Collecting munch
+  Downloading munch-2.5.0-py2.py3-none-any.whl (10 kB)
+Collecting huggingface-hub
+  Downloading huggingface_hub-0.13.2-py3-none-any.whl (199 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 199.2/199.2 kB 5.7 MB/s eta 0:00:00
+Requirement already satisfied: requests in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from fsspec[http]>2021.06.0->pytorch-lightning) (2.28.2)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1
+  Downloading aiohttp-3.8.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.0 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 3.4 MB/s eta 0:00:00
+Requirement already satisfied: nvidia-cusolver-cu11==11.4.0.1 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.4.0.1)
+Requirement already satisfied: nvidia-cublas-cu11==11.10.3.66 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.10.3.66)
+Requirement already satisfied: nvidia-cufft-cu11==10.9.0.58 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (10.9.0.58)
+Requirement already satisfied: nvidia-cuda-runtime-cu11==11.7.99 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.7.99)
+Requirement already satisfied: nvidia-cuda-nvrtc-cu11==11.7.99 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.7.99)
+Requirement already satisfied: nvidia-cudnn-cu11==8.5.0.96 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (8.5.0.96)
+Requirement already satisfied: nvidia-curand-cu11==10.2.10.91 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (10.2.10.91)
+Requirement already satisfied: sympy in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (1.11.1)
+Requirement already satisfied: filelock in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (3.10.0)
+Requirement already satisfied: jinja2 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (3.1.2)
+Requirement already satisfied: nvidia-cuda-cupti-cu11==11.7.101 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.7.101)
+Requirement already satisfied: nvidia-nccl-cu11==2.14.3 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (2.14.3)
+Requirement already satisfied: nvidia-cusparse-cu11==11.7.4.91 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.7.4.91)
+Requirement already satisfied: nvidia-nvtx-cu11==11.7.91 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (11.7.91)
+Requirement already satisfied: networkx in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (3.0)
+Requirement already satisfied: triton==2.0.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from torch>=1.11.0->pytorch-lightning) (2.0.0)
+Requirement already satisfied: wheel in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from nvidia-cublas-cu11==11.10.3.66->torch>=1.11.0->pytorch-lightning) (0.38.4)
+Requirement already satisfied: setuptools in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from nvidia-cublas-cu11==11.10.3.66->torch>=1.11.0->pytorch-lightning) (65.6.3)
+Requirement already satisfied: cmake in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from triton==2.0.0->torch>=1.11.0->pytorch-lightning) (3.26.0)
+Requirement already satisfied: lit in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from triton==2.0.0->torch>=1.11.0->pytorch-lightning) (15.0.7)
+Collecting async-timeout<5.0,>=4.0.0a3
+  Downloading async_timeout-4.0.2-py3-none-any.whl (5.8 kB)
+Collecting aiosignal>=1.1.2
+  Downloading aiosignal-1.3.1-py3-none-any.whl (7.6 kB)
+Collecting multidict<7.0,>=4.5
+  Downloading multidict-6.0.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (114 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 114.2/114.2 kB 4.1 MB/s eta 0:00:00
+Collecting attrs>=17.3.0
+  Downloading attrs-22.2.0-py3-none-any.whl (60 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.0/60.0 kB 3.2 MB/s eta 0:00:00
+Collecting frozenlist>=1.1.1
+  Downloading frozenlist-1.3.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (158 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 158.8/158.8 kB 2.9 MB/s eta 0:00:00
+Requirement already satisfied: charset-normalizer<4.0,>=2.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>2021.06.0->pytorch-lightning) (3.1.0)
+Collecting yarl<2.0,>=1.0
+  Downloading yarl-1.8.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (264 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 264.6/264.6 kB 2.1 MB/s eta 0:00:00
+Requirement already satisfied: MarkupSafe>=2.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from jinja2->torch>=1.11.0->pytorch-lightning) (2.1.2)
+Collecting six
+  Downloading six-1.16.0-py2.py3-none-any.whl (11 kB)
+Requirement already satisfied: idna<4,>=2.5 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from requests->fsspec[http]>2021.06.0->pytorch-lightning) (3.4)
+Requirement already satisfied: certifi>=2017.4.17 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from requests->fsspec[http]>2021.06.0->pytorch-lightning) (2022.12.7)
+Requirement already satisfied: urllib3<1.27,>=1.21.1 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from requests->fsspec[http]>2021.06.0->pytorch-lightning) (1.26.15)
+Requirement already satisfied: mpmath>=0.19 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from sympy->torch>=1.11.0->pytorch-lightning) (1.3.0)
+Building wheels for collected packages: efficientnet-pytorch, pretrainedmodels
+  Building wheel for efficientnet-pytorch (setup.py): started
+  Building wheel for efficientnet-pytorch (setup.py): finished with status 'done'
+  Created wheel for efficientnet-pytorch: filename=efficientnet_pytorch-0.7.1-py3-none-any.whl size=16429 sha256=4898eb40e3b99b730052c423bb0d9dc536fafff4790b9aeb9f01b17d691bf55f
+  Stored in directory: /home/swl/.cache/pip/wheels/29/16/24/752e89d88d333af39a288421e64d613b5f652918e39ef1f8e3
+  Building wheel for pretrainedmodels (setup.py): started
+  Building wheel for pretrainedmodels (setup.py): finished with status 'done'
+  Created wheel for pretrainedmodels: filename=pretrainedmodels-0.7.4-py3-none-any.whl size=60945 sha256=c9fd2facc442661a7c5674385c1c8f4261207dbbbd78e8e67f98ce94fe1bef97
+  Stored in directory: /home/swl/.cache/pip/wheels/d1/3b/4e/2f3015f1ab76f34be28e04c4bcee27e8cabfa70d2eadf8bc3b
+Successfully built efficientnet-pytorch pretrainedmodels
+Installing collected packages: six, multidict, lightning-utilities, fsspec, frozenlist, attrs, async-timeout, yarl, munch, huggingface-hub, aiosignal, aiohttp, torchmetrics, timm, pretrainedmodels, efficientnet-pytorch, segmentation-models-pytorch, pytorch-lightning
+Successfully installed aiohttp-3.8.4 aiosignal-1.3.1 async-timeout-4.0.2 attrs-22.2.0 efficientnet-pytorch-0.7.1 frozenlist-1.3.3 fsspec-2023.3.0 huggingface-hub-0.13.2 lightning-utilities-0.8.0 multidict-6.0.4 munch-2.5.0 pretrainedmodels-0.7.4 pytorch-lightning-2.0.0 segmentation-models-pytorch-0.3.2 six-1.16.0 timm-0.6.12 torchmetrics-0.11.4 yarl-1.8.2

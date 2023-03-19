@@ -1,0 +1,6 @@
+Collecting opencv-python
+  Downloading opencv_python-4.7.0.72-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (61.8 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.8/61.8 MB 4.2 MB/s eta 0:00:00
+Requirement already satisfied: numpy>=1.17.0 in /home/swl/miniconda3/envs/fractal/lib/python3.9/site-packages (from opencv-python) (1.23.5)
+Installing collected packages: opencv-python
+Successfully installed opencv-python-4.7.0.72
