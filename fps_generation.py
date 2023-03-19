@@ -5,7 +5,13 @@ from PIL import Image
 
 import numpy as np
 import torch
+import torchvision
 from fractal_learning.fractals import ifs, diamondsquare
+
+def tensor_to_np(tensor):
+    img = tensor.mul(255).byte()
+    img = img.cpu().numpy().transpose((1, 2, 0))
+    return img
 
 seed = 123
 def init_seed(seed):
@@ -16,13 +22,22 @@ def init_seed(seed):
     random.seed(seed)
     
 ifs_file = './ifs-10k.pkl'
+statmix_file = None
+# statmix_file = 'statmix_cifar10_n20_exp50_hetero_dirichlet0.pkl'
 
 sample_images = 18000
 sample_codes = 2
 iterations = 1000
 image_size = 32
-save_dir = f'./ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_seed{seed}/'
+if statmix_file is not None:
+    save_dir = f'./statmix-ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_seed{seed}/'
+else:
+    save_dir = f'./ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_seed{seed}/'
 
+if statmix_file is not None:
+    statmix_all_clients = pickle.load(open(statmix_file, 'rb'))
+    print(len(statmix_all_clients['mu']))
+    print(statmix_all_clients['mu'][0])
 
 with open(ifs_file, 'rb') as f:
 	fractal_systems = pickle.load(f)
@@ -31,6 +46,8 @@ print(num_systems)
 print(fractal_systems["params"][0]['system'])
 
 
+toTensor = torchvision.transforms.ToTensor()
+toPIL = torchvision.transforms.ToPILImage()
 images = []
 for k in range(sample_images):
     indices = np.random.choice(num_systems, size=sample_codes, replace=False)
@@ -44,13 +61,41 @@ for k in range(sample_images):
             points = ifs.iterate(system, 100000)
             gray_image = ifs.render(points, s=image_size, binary=False)
             color_image = ifs.colorize(gray_image)
-            black_background = black_backgrounds[j]
-            # print(black_background.shape)
-            black_background[gray_image.nonzero()] = color_image[gray_image.nonzero()]
-            # background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
-            # background[gray_image.nonzero()] = color_image[gray_image.nonzero()]
-            # Image.fromarray(background).save(save_dir + f'k{k}_i{i}_j{j}.jpg')
-    
+            if statmix_file is not None:
+                
+                color_image_tensor = toTensor(color_image)
+                
+                index_random = np.random.choice(len(statmix_all_clients['mu']), size=1)[0]
+                mu_random = statmix_all_clients['mu'][index_random].unsqueeze(1).unsqueeze(2)
+                std_random = statmix_all_clients['std'][index_random].unsqueeze(1).unsqueeze(2)
+                # print(mu_random)
+                # print(std_random)
+                
+                mu_fps = torch.mean(color_image_tensor, dim=[1, 2]).unsqueeze(1).unsqueeze(2)
+                std_fps = torch.std(color_image_tensor, dim=[1, 2]).unsqueeze(1).unsqueeze(2)
+                # print(mu_fps)
+                # print(std_fps)
+                color_image_tensor_statmix = torch.div(color_image_tensor - mu_fps, std_fps)
+                color_image_tensor_statmix = (color_image_tensor_statmix * std_random) + mu_random
+                color_image_statmix = tensor_to_np(color_image_tensor_statmix)
+                
+                
+                black_background = black_backgrounds[j]
+                # print(black_background.shape)
+                black_background[gray_image.nonzero()] = color_image_statmix[gray_image.nonzero()]
+                
+                # background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
+                # background[gray_image.nonzero()] = color_image_statmix[gray_image.nonzero()]
+                # Image.fromarray(background).save(save_dir + f'k{k}_i{i}_j{j}_statmix.jpg')
+            else:
+                black_background = black_backgrounds[j]
+                # print(black_background.shape)
+                black_background[gray_image.nonzero()] = color_image[gray_image.nonzero()]
+                
+                # background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
+                # background[gray_image.nonzero()] = color_image[gray_image.nonzero()]
+                # Image.fromarray(background).save(save_dir + f'k{k}_i{i}_j{j}.jpg')
+            
     for j in range(2):
         os.makedirs(save_dir + f'{j}/', exist_ok=True)
         Image.fromarray(black_backgrounds[j]).save(save_dir + f'{j}/{k}.jpg')
