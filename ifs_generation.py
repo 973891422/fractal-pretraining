@@ -26,10 +26,10 @@ statmix_file = None
 # statmix_file = 'statmix_cifar10_n20_step5_0.2_0.1_0.7_imb0.3_dirichlet0.3_seed123.pkl'
 
 sample_images = 18000
-sample_codes = 2
+sample_codes = 1
 iterations = 1000
 image_size = 32
-use_color_background = True
+use_color_background = False
 dataset_name = f'ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_seed{seed}'
 
 if statmix_file is not None:
