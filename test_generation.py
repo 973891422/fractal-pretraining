@@ -25,12 +25,14 @@ ifs_file = './ifs-10k.pkl'
 statmix_file = None
 # statmix_file = 'statmix_cifar10_n20_step5_0.2_0.1_0.7_imb0.3_dirichlet0.3_seed123.pkl'
 
-sample_images = 100
-sample_codes = 1
-iterations = 100
-image_size = 1024
-use_color_background = False
-dataset_name = f'ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_size{image_size}_seed{seed}'
+sample_images = 18000
+sample_codes = [1,2,3]
+iterations = 1000
+iteration_times = 2
+image_size = 224
+use_color_background = True
+dataset_name = f'ifs-10k_n{sample_images}_i{"_".join([str(i) for i in sample_codes])}_iter{iterations}_seed{seed}_toy'
+print(dataset_name)
 
 if statmix_file is not None:
     dataset_name = 'statmix-' + dataset_name
@@ -56,18 +58,22 @@ print(fractal_systems["params"][0]['system'])
 toTensor = torchvision.transforms.ToTensor()
 toPIL = torchvision.transforms.ToPILImage()
 images = []
+num_codes_all_images = np.random.choice(sample_codes, size=sample_images, replace=True)
 for k in range(sample_images):
-    indices = np.random.choice(num_systems, size=sample_codes, replace=False)
-    # print(indices)
+    
     
     
     if use_color_background:
-        colorized_background = diamondsquare.colorized_ds(size=image_size).copy()
+        colorized_background = diamondsquare.colorized_ds(size=32).copy()
         backgrounds = np.stack([colorized_background, colorized_background.copy()], axis=0)
     else:
         backgrounds = np.zeros((2, image_size, image_size, 3), dtype=np.uint8)
     
-    for i in range(sample_codes):
+    num_codes = num_codes_all_images[k]
+    
+    indices = np.random.choice(num_systems, size=num_codes, replace=False)
+    # print(indices)
+    for i in range(num_codes):
         system = fractal_systems["params"][indices[i]]['system']
         for j in range(2):
             points = ifs.iterate(system, 100000)

@@ -2,6 +2,7 @@ import os
 import pickle
 import random
 from PIL import Image
+from matplotlib import pyplot as plt
 
 import numpy as np
 import torch
@@ -25,12 +26,12 @@ ifs_file = './ifs-10k.pkl'
 statmix_file = None
 # statmix_file = 'statmix_cifar10_n20_step5_0.2_0.1_0.7_imb0.3_dirichlet0.3_seed123.pkl'
 
-sample_images = 18000
-sample_codes = 1
+sample_images = 1
+sample_codes = 2
 iterations = 1000
-image_size = 32
+image_size = 224
 use_color_background = False
-dataset_name = f'ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_seed{seed}'
+dataset_name = f'ifs-10k_n{sample_images}_i{sample_codes}_iter{iterations}_size{image_size}_seed{seed}'
 
 if statmix_file is not None:
     dataset_name = 'statmix-' + dataset_name
@@ -55,6 +56,7 @@ print(fractal_systems["params"][0]['system'])
 
 toTensor = torchvision.transforms.ToTensor()
 toPIL = torchvision.transforms.ToPILImage()
+randomAffine = torchvision.transforms.RandomAffine(degrees=(30, 70), translate=(0.1, 0.3), scale=(0.5, 0.75))
 images = []
 for k in range(sample_images):
     indices = np.random.choice(num_systems, size=sample_codes, replace=False)
@@ -62,10 +64,11 @@ for k in range(sample_images):
     
     
     if use_color_background:
-        colorized_background = diamondsquare.colorized_ds(size=32).copy()
+        colorized_background = diamondsquare.colorized_ds(size=image_size).copy()
         backgrounds = np.stack([colorized_background, colorized_background.copy()], axis=0)
     else:
         backgrounds = np.zeros((2, image_size, image_size, 3), dtype=np.uint8)
+    
     
     for i in range(sample_codes):
         system = fractal_systems["params"][indices[i]]['system']
@@ -102,9 +105,29 @@ for k in range(sample_images):
                 # background[gray_image.nonzero()] = color_image_statmix[gray_image.nonzero()]
                 # Image.fromarray(background).save(save_dir + f'k{k}_i{i}_j{j}_statmix.jpg')
             else:
+                
+                
+                single_fractral = np.zeros((image_size, image_size, 3), dtype=np.uint8)
+                single_fractral[gray_image.nonzero()] = color_image[gray_image.nonzero()]
+
+                # os.makedirs(os.path.join(save_dir, f'{j}'), exist_ok=True)
+                # single_fractral = randomAffine(toTensor(single_fractral))
+                Image.fromarray(single_fractral).save(os.path.join(save_dir, f'{k}_i{i}_j{j}.jpg'))
+                
+                affined_images = torch.cat([toTensor(gray_image), toTensor(color_image)], dim=0)
+                affined_images = randomAffine(affined_images)
+                
+                # print(affined_images[0,:,:].shape)
+                # print(affined_images[1:,:,:].shape)
+                gray_image = tensor_to_np(affined_images[0,:,:].unsqueeze(0)).squeeze()
+                color_image = tensor_to_np(affined_images[1:,:,:])
+                
+                
                 background = backgrounds[j]
-                # print(black_background.shape)
+                
                 background[gray_image.nonzero()] = color_image[gray_image.nonzero()]
+                
+                
                 
                 
                 # background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
@@ -115,31 +138,3 @@ for k in range(sample_images):
         os.makedirs(os.path.join(save_dir, f'{j}'), exist_ok=True)
         Image.fromarray(backgrounds[j]).save(os.path.join(save_dir, f'{j}', f'{k}.jpg'))
         
-        
-# a_system = fractal_systems["params"][0]['system']
-# a_points = ifs.iterate(a_system, 100000)
-# a_gray_image = ifs.render(a_points, s=image_size, binary=False)
-# a_color_image = ifs.colorize(a_gray_image)
-# a_black_background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
-# a_black_background[a_gray_image.nonzero()] = a_color_image[a_gray_image.nonzero()]
-# Image.fromarray(a_black_background).save("./a.jpg")
-
-# b_system = fractal_systems["params"][1]['system']
-# b_points = ifs.iterate(b_system, 100000)
-# b_gray_image = ifs.render(b_points, s=image_size, binary=False)
-# b_color_image = ifs.colorize(b_gray_image)
-
-# b_black_background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
-# b_black_background[b_gray_image.nonzero()] = b_color_image[b_gray_image.nonzero()]
-# Image.fromarray(b_black_background).save("./b.jpg")
-
-# black_background = np.zeros((image_size, image_size, 3), dtype=np.uint8)
-# black_background[a_gray_image.nonzero()] = a_color_image[a_gray_image.nonzero()]
-# black_background[b_gray_image.nonzero()] = b_color_image[b_gray_image.nonzero()]
-
-# print(black_background.dtype)
-# print(black_background.shape)
-# img_pil = Image.fromarray(black_background)
-# # img_pil.save("./a.jpg")
-# img_pil.save("./all.jpg")
-# # img_pil.save("./all1.jpg")
